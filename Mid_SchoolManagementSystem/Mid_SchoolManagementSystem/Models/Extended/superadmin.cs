@@ -34,6 +34,8 @@ namespace Mid_SchoolManagementSystem.Models.DataAccess
         [DataType(DataType.Password)]
         [Compare("superadminpassword", ErrorMessage = "Passwords do not match!")]
         public string superadminconfirmpassword { get; set; }
+
+        //samin baje chele
     }
 
 }
