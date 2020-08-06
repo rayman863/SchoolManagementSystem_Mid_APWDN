@@ -205,7 +205,7 @@
       <LastGenOutput>smsModel.cs</LastGenOutput>
     </Content>
     <None Include="packages.config" />
-    <Content Include="Views\SuperAdmin\Create.cshtml" />
+    <Content Include="Views\SuperAdmin\CreateSuperAdmin.cshtml" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <None Include="Web.Debug.config">

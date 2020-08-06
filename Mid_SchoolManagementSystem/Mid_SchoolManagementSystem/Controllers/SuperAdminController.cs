@@ -14,7 +14,7 @@ namespace Mid_SchoolManagementSystem.Controllers
     {
         //SuperAdmin Create GET
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult CreateSuperAdmin()
         {
             return View();
         }
@@ -22,7 +22,7 @@ namespace Mid_SchoolManagementSystem.Controllers
         //SuperAdmin Create POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Exclude = "id")] superadmin superadmin)
+        public ActionResult CreateSuperAdmin([Bind(Exclude = "id")] superadmin superadmin)
         {
             bool Status = false;
             string message = "";
@@ -31,8 +31,8 @@ namespace Mid_SchoolManagementSystem.Controllers
 
             if (ModelState.IsValid)
             {
-                var nameExists = NameExists(superadmin.superadminname);
-                if (nameExists)
+                var nameExistsSuper = NameExistsSuper(superadmin.superadminname);
+                if (nameExistsSuper)
                 {
                     ModelState.AddModelError("NameExist", "Super Admin name already exists");
                     return View(superadmin);
@@ -59,8 +59,11 @@ namespace Mid_SchoolManagementSystem.Controllers
             return View(superadmin);
         }
 
+        //Create Admin Get
+
+
         [NonAction]
-        public bool NameExists(string superadminname)
+        public bool NameExistsSuper(string superadminname)
         {
             using (smsEntities data = new smsEntities())
             {
