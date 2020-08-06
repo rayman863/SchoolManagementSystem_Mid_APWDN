@@ -145,8 +145,8 @@ G:\semester 11\ASP.NET\FINAL PROJECT\SchoolManagementSystem_Mid_APWDN\Mid_School
 G:\semester 11\ASP.NET\FINAL PROJECT\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\bin\System.Web.Helpers.xml
 G:\semester 11\ASP.NET\FINAL PROJECT\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\bin\System.Web.Mvc.xml
 G:\semester 11\ASP.NET\FINAL PROJECT\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-G:\semester 11\ASP.NET\FINAL PROJECT\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\obj\Debug\Mid_SchoolManagementSystem.csprojAssemblyReference.cache
 G:\semester 11\ASP.NET\FINAL PROJECT\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\obj\Debug\Mid_SchoolManagementSystem.csproj.CoreCompileInputs.cache
 G:\semester 11\ASP.NET\FINAL PROJECT\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\obj\Debug\Mid_SchoolManagementSystem.csproj.CopyComplete
 G:\semester 11\ASP.NET\FINAL PROJECT\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\obj\Debug\Mid_SchoolManagementSystem.dll
 G:\semester 11\ASP.NET\FINAL PROJECT\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\obj\Debug\Mid_SchoolManagementSystem.pdb
+G:\semester 11\ASP.NET\FINAL PROJECT\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\obj\Debug\Mid_SchoolManagementSystem.csprojAssemblyReference.cache

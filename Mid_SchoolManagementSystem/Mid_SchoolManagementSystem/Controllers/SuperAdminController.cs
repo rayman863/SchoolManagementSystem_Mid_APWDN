@@ -34,13 +34,13 @@ namespace Mid_SchoolManagementSystem.Controllers
                 var nameExistsSuper = NameExistsSuper(superadmin.superadminname);
                 if (nameExistsSuper)
                 {
-                    ModelState.AddModelError("NameExist", "Super Admin name already exists");
+                    ModelState.AddModelError("NameExistSuper", "Super Admin name already exists");
                     return View(superadmin);
                 }
 
                 superadmin.superadminpassword = Crypto.Hash(superadmin.superadminpassword);
                 superadmin.superadminconfirmpassword = Crypto.Hash(superadmin.superadminconfirmpassword);
-
+                
                 using (smsEntities data = new smsEntities())
                 {
                     data.superadmin.Add(superadmin);
@@ -60,6 +60,51 @@ namespace Mid_SchoolManagementSystem.Controllers
         }
 
         //Create Admin Get
+        [HttpGet]
+        public ActionResult CreateAdmin()
+        {
+            return View();
+        }
+
+        //Create Admin Post
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateAdmin([Bind(Exclude = "id")] admin admin)
+        {
+            bool Status = false;
+            string message = "";
+
+            admin.adminid = generateAdminID();//"20-0005-01";
+
+            if (ModelState.IsValid)
+            {
+                var nameExistAdmin = NameExistsAdmin(admin.adminname);
+                if (nameExistAdmin)
+                {
+                    ModelState.AddModelError("NameExistAdmin", "Admin name already exists");
+                    return View(admin);
+                }
+
+                admin.adminpassword = Crypto.Hash(admin.adminpassword);
+                admin.adminconfirmpassword= Crypto.Hash(admin.adminconfirmpassword);
+
+                using (smsEntities data = new smsEntities())
+                {
+                    data.admin.Add(admin);
+                    data.SaveChanges();
+                    message = "Admin Account " + admin.adminname + " with ID = " + admin.adminid + " has been created.";
+                    Status = true;
+                }
+            }
+            else
+            {
+                message = "Invalid Request";
+            }
+
+            ViewBag.Message = message;
+            ViewBag.Status = Status;
+            return View(admin);
+        }
 
 
         [NonAction]
@@ -73,6 +118,16 @@ namespace Mid_SchoolManagementSystem.Controllers
         }
 
         [NonAction]
+        public bool NameExistsAdmin(string adminname)
+        {
+            using (smsEntities data = new smsEntities())
+            {
+                var name = data.admin.Where(a => a.adminname == adminname).FirstOrDefault();
+                return name != null;
+            }
+        }
+
+        [NonAction]
         public string generateSuperID()
         {
             using (smsEntities data = new smsEntities())
@@ -81,6 +136,34 @@ namespace Mid_SchoolManagementSystem.Controllers
                              orderby
                              superadmin.id descending
                              select superadmin.superadminid).Take(1).FirstOrDefault();//.ToString();
+                //Debug.WriteLine(oldID);
+                string toBreak = oldID.ToString();
+                string[] idList = toBreak.Split('-');//20-0000-01
+                //foreach (string id in idList)
+                //{ Debug.WriteLine(id); }
+                string id1 = idList[0];
+                //Debug.WriteLine(id1);
+                string id2 = idList[1];
+                //Debug.WriteLine(id2);
+                string id3 = idList[2];
+                //Debug.WriteLine(id3);
+                int idInc = Convert.ToInt32(id2);
+                idInc = idInc + 1;
+                id2 = idInc.ToString("D" + 4);
+                string newID = id1 + "-" + id2 + "-" + id3;
+                return newID;
+            }
+        }
+
+        [NonAction]
+        public string generateAdminID()
+        {
+            using (smsEntities data = new smsEntities())
+            {
+                var oldID = (from admin in data.admin
+                             orderby
+                             admin.id descending
+                             select admin.adminid).Take(1).FirstOrDefault();//.ToString();
                 //Debug.WriteLine(oldID);
                 string toBreak = oldID.ToString();
                 string[] idList = toBreak.Split('-');//20-0000-01

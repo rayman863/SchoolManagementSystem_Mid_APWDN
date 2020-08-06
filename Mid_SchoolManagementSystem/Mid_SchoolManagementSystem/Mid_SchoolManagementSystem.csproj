@@ -182,6 +182,7 @@
     <Compile Include="Models\DataAccess\uploadnote.cs">
       <DependentUpon>smsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Extended\admin.cs" />
     <Compile Include="Models\Extended\superadmin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -208,6 +209,7 @@
     <Content Include="Views\SuperAdmin\CreateSuperAdmin.cshtml" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Views\SuperAdmin\CreateAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
