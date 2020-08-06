@@ -183,6 +183,7 @@
       <DependentUpon>smsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Extended\admin.cs" />
+    <Compile Include="Models\Extended\student.cs" />
     <Compile Include="Models\Extended\superadmin.cs" />
     <Compile Include="Models\Extended\teacher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
