@@ -183,9 +183,22 @@
       <DependentUpon>smsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Extended\admin.cs" />
+    <Compile Include="Models\Extended\assignment.cs" />
+    <Compile Include="Models\Extended\class.cs" />
+    <Compile Include="Models\Extended\coursenotice.cs" />
+    <Compile Include="Models\Extended\generalnotice.cs" />
+    <Compile Include="Models\Extended\grade.cs" />
+    <Compile Include="Models\Extended\homework.cs" />
+    <Compile Include="Models\Extended\live.cs" />
+    <Compile Include="Models\Extended\routine.cs" />
+    <Compile Include="Models\Extended\section.cs" />
     <Compile Include="Models\Extended\student.cs" />
+    <Compile Include="Models\Extended\subject.cs" />
     <Compile Include="Models\Extended\superadmin.cs" />
     <Compile Include="Models\Extended\teacher.cs" />
+    <Compile Include="Models\Extended\timeslot.cs" />
+    <Compile Include="Models\Extended\tpe.cs" />
+    <Compile Include="Models\Extended\uploadnote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
