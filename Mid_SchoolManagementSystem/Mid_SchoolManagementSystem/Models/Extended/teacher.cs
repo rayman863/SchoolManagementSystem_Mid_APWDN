@@ -51,7 +51,6 @@ namespace Mid_SchoolManagementSystem.Models.DataAccess
         public int teacherphone { get; set; }
 
         [Display(Name = "Class Id")]
-        //[Display(Name = "Class Id")]
         public int classid { get; set; }
 
         [Display(Name = "Section Id")]
