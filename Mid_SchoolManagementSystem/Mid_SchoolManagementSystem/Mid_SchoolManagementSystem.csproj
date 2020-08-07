@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\SuperAdminController.cs" />
     <Compile Include="Crypto.cs" />
     <Compile Include="Global.asax.cs">
@@ -225,6 +226,17 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Views\SuperAdmin\CreateAdmin.cshtml" />
+    <Content Include="Views\Admin\ListSection.cshtml" />
+    <Content Include="Views\Admin\CreateSection.cshtml" />
+    <Content Include="Views\Admin\EditSection.cshtml" />
+    <Content Include="Views\Admin\DeleteSection.cshtml" />
+    <Content Include="Views\Admin\ListStudent.cshtml" />
+    <Content Include="Views\Admin\CreateStudent.cshtml" />
+    <Content Include="Views\Admin\CreateSubject.cshtml" />
+    <Content Include="Views\Admin\EditSubject.cshtml" />
+    <Content Include="Views\Admin\DeleteSubject.cshtml" />
+    <Content Include="Views\Admin\ListSubject.cshtml" />
+    <Content Include="Views\Admin\CreateTeacher.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
