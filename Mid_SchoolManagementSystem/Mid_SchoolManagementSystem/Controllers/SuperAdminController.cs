@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,18 @@ namespace Mid_SchoolManagementSystem.Controllers
 {
     public class SuperAdminController : Controller
     {
+        smsEntities data = new smsEntities();
+
+        public object superadmin { get; private set; }
+
+        //SuperAdmin List GET
+        [HttpGet]
+        public ActionResult ListSuperAdmin()
+        {
+            return View(data.superadmin.ToList());
+        }
+
+
         //SuperAdmin Create GET
         [HttpGet]
         public ActionResult CreateSuperAdmin()
@@ -40,7 +53,7 @@ namespace Mid_SchoolManagementSystem.Controllers
 
                 superadmin.superadminpassword = Crypto.Hash(superadmin.superadminpassword);
                 superadmin.superadminconfirmpassword = Crypto.Hash(superadmin.superadminconfirmpassword);
-                
+
                 using (smsEntities data = new smsEntities())
                 {
                     data.superadmin.Add(superadmin);
@@ -59,7 +72,65 @@ namespace Mid_SchoolManagementSystem.Controllers
             return View(superadmin);
         }
 
-        //Create Admin Get
+        //Edit Super Admin GET
+        [HttpGet]
+        public ActionResult EditSuperAdmin(int id)
+        {
+            superadmin s = data.superadmin.Where(x => x.id == id).FirstOrDefault();
+
+            s.id = id;
+            superadmin[] superadmin = data.superadmin.ToArray();
+            ViewData["superadmin"] = superadmin;
+            return View(s);
+        }
+
+
+        //Edit Super Admin POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditSuperAdmin(superadmin s, int id)
+        {
+
+            superadmin superadmintoupdate = data.superadmin.Where(x => x.id == id).FirstOrDefault();
+            Debug.WriteLine(superadmintoupdate);
+            Debug.WriteLine(id);
+            Debug.WriteLine(s.superadminid);
+            Debug.WriteLine(s.superadminname);
+            Debug.WriteLine(s.superadminpassword);
+            Debug.WriteLine(s.superadminconfirmpassword);
+            //superadmintoupdate.id = s.id;
+            superadmintoupdate.superadminid = s.superadminid;
+            superadmintoupdate.superadminname = s.superadminname;
+            superadmintoupdate.superadminpassword = Crypto.Hash(s.superadminpassword);
+            superadmintoupdate.superadminconfirmpassword = Crypto.Hash(s.superadminconfirmpassword);
+
+            try
+            {
+                data.Entry(superadmintoupdate).State = EntityState.Modified;
+                data.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+
+            return RedirectToAction("ListSuperAdmin");
+
+        }
+
+
+
+        //Create Admin GET
         [HttpGet]
         public ActionResult CreateAdmin()
         {
@@ -86,7 +157,7 @@ namespace Mid_SchoolManagementSystem.Controllers
                 }
 
                 admin.adminpassword = Crypto.Hash(admin.adminpassword);
-                admin.adminconfirmpassword= Crypto.Hash(admin.adminconfirmpassword);
+                admin.adminconfirmpassword = Crypto.Hash(admin.adminconfirmpassword);
 
                 using (smsEntities data = new smsEntities())
                 {
