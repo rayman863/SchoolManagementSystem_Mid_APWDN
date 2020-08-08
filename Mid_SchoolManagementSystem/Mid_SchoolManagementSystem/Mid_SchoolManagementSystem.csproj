@@ -112,7 +112,10 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\SuperAdminController.cs" />
+    <Compile Include="Controllers\TeacherController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Crypto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -200,6 +203,7 @@
     <Compile Include="Models\Extended\timeslot.cs" />
     <Compile Include="Models\Extended\tpe.cs" />
     <Compile Include="Models\Extended\uploadnote.cs" />
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\ViewModel\SubjectClassView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -248,6 +252,14 @@
     <Content Include="Views\SuperAdmin\EditAdmin.cshtml" />
     <Content Include="Views\SuperAdmin\ListAdmin.cshtml" />
     <Content Include="Views\SuperAdmin\DeleteSuperAdmin.cshtml" />
+    <Content Include="Views\SuperAdmin\SuperIndex.cshtml" />
+    <Content Include="Views\Teacher\TeacherIndex.cshtml" />
+    <Content Include="Views\Student\StudentIndex.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\Admin\AdminIndex.cshtml" />
+    <Content Include="Views\Shared\_SuperLayout.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Admin\DeleteStudent.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

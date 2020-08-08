@@ -1,7 +1,8 @@
 ﻿@model Mid_SchoolManagementSystem.Models.DataAccess.section
 
 @{
-    Layout = null;
+    ViewBag.Title = "DeleteSection";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -20,24 +21,25 @@
             <dt>
                 @Html.DisplayNameFor(model => model.sectionname)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.sectionname)
             </dd>
-    
+
             <dt>
                 @Html.DisplayNameFor(model => model.classid)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.classid)
             </dd>
-    
+
         </dl>
-    
-        @using (Html.BeginForm()) {
+
+        @using (Html.BeginForm())
+        {
             @Html.AntiForgeryToken()
-    
+
             <div class="form-actions no-color">
                 <input type="submit" value="Delete" class="btn btn-default" /> |
                 @Html.ActionLink("Back to List", "ListSection")

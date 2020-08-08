@@ -17,11 +17,27 @@ namespace Mid_SchoolManagementSystem.Controllers
 
         public object superadmin { get; private set; }
 
+        //Super landing page or INDEX
+        [HttpGet]
+        public ActionResult SuperIndex()
+        {
+            if ((string)Session["user"] != null)
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "User");
+        }
+
+
         //SuperAdmin List GET
         [HttpGet]
         public ActionResult ListSuperAdmin()
         {
-            return View(data.superadmin.ToList());
+            if ((string)Session["user"] != null)
+            {
+                return View(data.superadmin.ToList());
+            }
+            return RedirectToAction("Login", "User");
         }
 
 
@@ -29,7 +45,11 @@ namespace Mid_SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult CreateSuperAdmin()
         {
-            return View();
+            if ((string)Session["user"] != null)
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "User");
         }
 
         //SuperAdmin Create POST
@@ -37,51 +57,59 @@ namespace Mid_SchoolManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateSuperAdmin([Bind(Exclude = "id")] superadmin superadmin)
         {
-            bool Status = false;
-            string message = "";
-
-            superadmin.superadminid = generateSuperID();//"20-0005-01";
-
-            if (ModelState.IsValid)
+            if ((string)Session["user"] != null)
             {
-                var nameExistsSuper = NameExistsSuper(superadmin.superadminname);
-                if (nameExistsSuper)
+                bool Status = false;
+                string message = "";
+
+                superadmin.superadminid = generateSuperID();//"20-0005-01";
+
+                if (ModelState.IsValid)
                 {
-                    ModelState.AddModelError("NameExistSuper", "Super Admin name already exists");
-                    return View(superadmin);
+                    var nameExistsSuper = NameExistsSuper(superadmin.superadminname);
+                    if (nameExistsSuper)
+                    {
+                        ModelState.AddModelError("NameExistSuper", "Super Admin name already exists");
+                        return View(superadmin);
+                    }
+
+                    superadmin.superadminpassword = Crypto.Hash(superadmin.superadminpassword);
+                    superadmin.superadminconfirmpassword = Crypto.Hash(superadmin.superadminconfirmpassword);
+
+                    using (smsEntities data = new smsEntities())
+                    {
+                        data.superadmin.Add(superadmin);
+                        data.SaveChanges();
+                        message = " Super Admin Account " + superadmin.superadminname + " with ID = " + superadmin.superadminid + " has been created.";
+                        Status = true;
+                    }
+                }
+                else
+                {
+                    message = "Invalid Request";
                 }
 
-                superadmin.superadminpassword = Crypto.Hash(superadmin.superadminpassword);
-                superadmin.superadminconfirmpassword = Crypto.Hash(superadmin.superadminconfirmpassword);
-
-                using (smsEntities data = new smsEntities())
-                {
-                    data.superadmin.Add(superadmin);
-                    data.SaveChanges();
-                    message = " Super Admin Account " + superadmin.superadminname + " with ID = " + superadmin.superadminid + " has been created.";
-                    Status = true;
-                }
+                ViewBag.Message = message;
+                ViewBag.Status = Status;
+                return View(superadmin);
             }
-            else
-            {
-                message = "Invalid Request";
-            }
-
-            ViewBag.Message = message;
-            ViewBag.Status = Status;
-            return View(superadmin);
+            return RedirectToAction("Login", "User");
         }
 
         //Edit Super Admin GET
         [HttpGet]
         public ActionResult EditSuperAdmin(int id)
         {
-            superadmin s = data.superadmin.Where(x => x.id == id).FirstOrDefault();
+            if ((string)Session["user"] != null)
+            {
+                superadmin s = data.superadmin.Where(x => x.id == id).FirstOrDefault();
 
-            s.id = id;
-            superadmin[] superadmin = data.superadmin.ToArray();
-            ViewData["superadmin"] = superadmin;
-            return View(s);
+                s.id = id;
+                superadmin[] superadmin = data.superadmin.ToArray();
+                ViewData["superadmin"] = superadmin;
+                return View(s);
+            }
+            return RedirectToAction("Login", "User");
         }
 
 
@@ -91,40 +119,44 @@ namespace Mid_SchoolManagementSystem.Controllers
         public ActionResult EditSuperAdmin(superadmin s, int id)
         {
 
-            superadmin superadmintoupdate = data.superadmin.Where(x => x.id == id).FirstOrDefault();
-            Debug.WriteLine(superadmintoupdate);
-            Debug.WriteLine(id);
-            Debug.WriteLine(s.superadminid);
-            Debug.WriteLine(s.superadminname);
-            Debug.WriteLine(s.superadminpassword);
-            Debug.WriteLine(s.superadminconfirmpassword);
-            //superadmintoupdate.id = s.id;
-            superadmintoupdate.superadminid = s.superadminid;
-            superadmintoupdate.superadminname = s.superadminname;
-            superadmintoupdate.superadminpassword = Crypto.Hash(s.superadminpassword);
-            superadmintoupdate.superadminconfirmpassword = Crypto.Hash(s.superadminconfirmpassword);
+            if ((string)Session["user"] != null)
+            {
+                superadmin superadmintoupdate = data.superadmin.Where(x => x.id == id).FirstOrDefault();
+                Debug.WriteLine(superadmintoupdate);
+                Debug.WriteLine(id);
+                Debug.WriteLine(s.superadminid);
+                Debug.WriteLine(s.superadminname);
+                Debug.WriteLine(s.superadminpassword);
+                Debug.WriteLine(s.superadminconfirmpassword);
+                //superadmintoupdate.id = s.id;
+                superadmintoupdate.superadminid = s.superadminid;
+                superadmintoupdate.superadminname = s.superadminname;
+                superadmintoupdate.superadminpassword = Crypto.Hash(s.superadminpassword);
+                superadmintoupdate.superadminconfirmpassword = Crypto.Hash(s.superadminconfirmpassword);
 
-            try
-            {
-                data.Entry(superadmintoupdate).State = EntityState.Modified;
-                data.SaveChanges();
-            }
-            catch (DbEntityValidationException e)
-            {
-                foreach (var eve in e.EntityValidationErrors)
+                try
                 {
-                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
+                    data.Entry(superadmintoupdate).State = EntityState.Modified;
+                    data.SaveChanges();
                 }
-                throw;
-            }
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
+                }
 
-            return RedirectToAction("ListSuperAdmin");
+                return RedirectToAction("ListSuperAdmin");
+            }
+            return RedirectToAction("Login", "User");
 
         }
 
@@ -132,8 +164,12 @@ namespace Mid_SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult DeleteSuperAdmin(int id)
         {
-            superadmin s = data.superadmin.Where(a => a.id == id).FirstOrDefault();
-            return View(s);
+            if ((string)Session["user"] != null)
+            {
+                superadmin s = data.superadmin.Where(a => a.id == id).FirstOrDefault();
+                return View(s);
+            }
+            return RedirectToAction("Login", "User");
         }
 
 
@@ -141,13 +177,29 @@ namespace Mid_SchoolManagementSystem.Controllers
         [HttpPost, ActionName("DeleteSuperAdmin")]
         public ActionResult ConfirmDeleteSuperAdmin(int id)
         {
-            superadmin s = data.superadmin.Where(a => a.id == id).FirstOrDefault();
-            data.superadmin.Remove(s);
-            data.SaveChanges();
+            if ((string)Session["user"] != null)
+            {
+                superadmin s = data.superadmin.Where(a => a.id == id).FirstOrDefault();
+                data.superadmin.Remove(s);
+                data.SaveChanges();
 
-            return RedirectToAction("ListSuperAdmin");
+                return RedirectToAction("ListSuperAdmin");
+            }
+            return RedirectToAction("Login", "User");
         }
 
+
+
+        //Admin landing page or INDEX
+        [HttpGet]
+        public ActionResult AdminIndex()
+        {
+            if ((string)Session["user"] != null)
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "User");
+        }
 
 
         //List Admin
@@ -155,14 +207,22 @@ namespace Mid_SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult ListAdmin()
         {
-            return View(data.admin.ToList());
+            if ((string)Session["user"] != null)
+            {
+                return View(data.admin.ToList());
+            }
+            return RedirectToAction("Login", "User");
         }
 
         //Create Admin GET
         [HttpGet]
         public ActionResult CreateAdmin()
         {
-            return View();
+            if ((string)Session["user"] != null)
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "User");
         }
 
         //Create Admin Post
@@ -170,39 +230,43 @@ namespace Mid_SchoolManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateAdmin([Bind(Exclude = "id")] admin admin)
         {
-            bool Status = false;
-            string message = "";
-
-            admin.adminid = generateAdminID();//"20-0005-01";
-
-            if (ModelState.IsValid)
+            if ((string)Session["user"] != null)
             {
-                var nameExistAdmin = NameExistsAdmin(admin.adminname);
-                if (nameExistAdmin)
+                bool Status = false;
+                string message = "";
+
+                admin.adminid = generateAdminID();//"20-0005-01";
+
+                if (ModelState.IsValid)
                 {
-                    ModelState.AddModelError("NameExistAdmin", "Admin name already exists");
-                    return View(admin);
+                    var nameExistAdmin = NameExistsAdmin(admin.adminname);
+                    if (nameExistAdmin)
+                    {
+                        ModelState.AddModelError("NameExistAdmin", "Admin name already exists");
+                        return View(admin);
+                    }
+
+                    admin.adminpassword = Crypto.Hash(admin.adminpassword);
+                    admin.adminconfirmpassword = Crypto.Hash(admin.adminconfirmpassword);
+
+                    using (smsEntities data = new smsEntities())
+                    {
+                        data.admin.Add(admin);
+                        data.SaveChanges();
+                        message = "Admin Account " + admin.adminname + " with ID = " + admin.adminid + " has been created.";
+                        Status = true;
+                    }
+                }
+                else
+                {
+                    message = "Invalid Request";
                 }
 
-                admin.adminpassword = Crypto.Hash(admin.adminpassword);
-                admin.adminconfirmpassword = Crypto.Hash(admin.adminconfirmpassword);
-
-                using (smsEntities data = new smsEntities())
-                {
-                    data.admin.Add(admin);
-                    data.SaveChanges();
-                    message = "Admin Account " + admin.adminname + " with ID = " + admin.adminid + " has been created.";
-                    Status = true;
-                }
+                ViewBag.Message = message;
+                ViewBag.Status = Status;
+                return View(admin);
             }
-            else
-            {
-                message = "Invalid Request";
-            }
-
-            ViewBag.Message = message;
-            ViewBag.Status = Status;
-            return View(admin);
+            return RedirectToAction("Login", "User");
         }
 
         //Edit Admin Get
@@ -210,12 +274,16 @@ namespace Mid_SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult EditAdmin(int id)
         {
-            admin a = data.admin.Where(x => x.id == id).FirstOrDefault();
+            if ((string)Session["user"] != null)
+            {
+                admin a = data.admin.Where(x => x.id == id).FirstOrDefault();
 
-            a.id = id;
-            admin[] admin = data.admin.ToArray();
-            ViewData["admin"] = admin;
-            return View(a);
+                a.id = id;
+                admin[] admin = data.admin.ToArray();
+                ViewData["admin"] = admin;
+                return View(a);
+            }
+            return RedirectToAction("Login", "User");
         }
 
 
@@ -225,40 +293,44 @@ namespace Mid_SchoolManagementSystem.Controllers
         public ActionResult EditAdmin(admin a, int id)
         {
 
-            admin admintoupdate = data.admin.Where(x => x.id == id).FirstOrDefault();
-            //Debug.WriteLine(admintoupdate);
-            //Debug.WriteLine(id);
-            //Debug.WriteLine(s.superadminid);
-            //Debug.WriteLine(s.superadminname);
-            //Debug.WriteLine(s.superadminpassword);
-            //Debug.WriteLine(s.superadminconfirmpassword);
-            //superadmintoupdate.id = s.id;
-            admintoupdate.adminid = a.adminid;
-            admintoupdate.adminname = a.adminname;
-            admintoupdate.adminpassword = Crypto.Hash(a.adminpassword);
-            admintoupdate.adminconfirmpassword = Crypto.Hash(a.adminconfirmpassword);
+            if ((string)Session["user"] != null)
+            {
+                admin admintoupdate = data.admin.Where(x => x.id == id).FirstOrDefault();
+                //Debug.WriteLine(admintoupdate);
+                //Debug.WriteLine(id);
+                //Debug.WriteLine(s.superadminid);
+                //Debug.WriteLine(s.superadminname);
+                //Debug.WriteLine(s.superadminpassword);
+                //Debug.WriteLine(s.superadminconfirmpassword);
+                //superadmintoupdate.id = s.id;
+                admintoupdate.adminid = a.adminid;
+                admintoupdate.adminname = a.adminname;
+                admintoupdate.adminpassword = Crypto.Hash(a.adminpassword);
+                admintoupdate.adminconfirmpassword = Crypto.Hash(a.adminconfirmpassword);
 
-            try
-            {
-                data.Entry(admintoupdate).State = EntityState.Modified;
-                data.SaveChanges();
-            }
-            catch (DbEntityValidationException e)
-            {
-                foreach (var eve in e.EntityValidationErrors)
+                try
                 {
-                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
+                    data.Entry(admintoupdate).State = EntityState.Modified;
+                    data.SaveChanges();
                 }
-                throw;
-            }
+                catch (DbEntityValidationException e)
+                {
+                    foreach (var eve in e.EntityValidationErrors)
+                    {
+                        Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                        foreach (var ve in eve.ValidationErrors)
+                        {
+                            Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                                ve.PropertyName, ve.ErrorMessage);
+                        }
+                    }
+                    throw;
+                }
 
-            return RedirectToAction("ListAdmin");
+                return RedirectToAction("ListAdmin");
+            }
+            return RedirectToAction("Login", "User");
 
         }
 
@@ -266,8 +338,12 @@ namespace Mid_SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult DeleteAdmin(int id)
         {
-            admin ad = data.admin.Where(a => a.id == id).FirstOrDefault();
-            return View(ad);
+            if ((string)Session["user"] != null)
+            {
+                admin ad = data.admin.Where(a => a.id == id).FirstOrDefault();
+                return View(ad);
+            }
+            return RedirectToAction("Login", "User");
         }
 
         //Delete Admin Post
@@ -275,11 +351,15 @@ namespace Mid_SchoolManagementSystem.Controllers
         [HttpPost, ActionName("DeleteAdmin")]
         public ActionResult ConfirmDeleteAdmin(int id)
         {
-            admin ad = data.admin.Where(a => a.id == id).FirstOrDefault();
-            data.admin.Remove(ad);
-            data.SaveChanges();
+            if ((string)Session["user"] != null)
+            {
+                admin ad = data.admin.Where(a => a.id == id).FirstOrDefault();
+                data.admin.Remove(ad);
+                data.SaveChanges();
 
-            return RedirectToAction("ListAdmin");
+                return RedirectToAction("ListAdmin");
+            }
+            return RedirectToAction("Login", "User");
         }
 
 

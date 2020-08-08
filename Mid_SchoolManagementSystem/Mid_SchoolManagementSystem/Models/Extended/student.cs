@@ -10,7 +10,7 @@ namespace Mid_SchoolManagementSystem.Models.DataAccess
     public partial class student
     {
         [Display(Name = "Student Confirm Password")]
-         [DataType(DataType.Password)]
+        [DataType(DataType.Password)]
         public string studentconfirmpassword { get; set; }
     }
     public class studentdata
@@ -32,33 +32,33 @@ namespace Mid_SchoolManagementSystem.Models.DataAccess
         [Required(AllowEmptyStrings = false, ErrorMessage = "Student Password is required")]
         [MinLength(8, ErrorMessage = "Atleast 8 characters required")]
         public string studentpassword { get; set; }
-        
+
         //stdob
         [Display(Name = "Student Date Of Birth")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Birth Date is required")]
         [DataType(DataType.Date)]
         public System.DateTime studentdob { get; set; }
-        
+
         //stphone
         [Display(Name = "Student Phone")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Phone Number is required")]
         public int studentphone { get; set; }
-        
+
         //staddress
         [Display(Name = "Student Address")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Student Address is required")]
         public string studentaddress { get; set; }
-        
+
         //stemail
         [Display(Name = "Student Email")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Student Email is required")]
         [DataType(DataType.EmailAddress)]
         public string studentemail { get; set; }
-        
+
         //stbloodgroup
         [Display(Name = "Student Blood Group")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Blood group need to be mentioned")]
-       public string studentbloodgroup { get; set; }
+        public string studentbloodgroup { get; set; }
 
         //stfees
         [Display(Name = "Student Fees")]
