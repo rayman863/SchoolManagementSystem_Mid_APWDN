@@ -239,6 +239,7 @@
     <Content Include="Views\Admin\CreateTeacher.cshtml" />
     <Content Include="Views\SuperAdmin\ListSuperAdmin.cshtml" />
     <Content Include="Views\SuperAdmin\EditSuperAdmin.cshtml" />
+    <Content Include="Views\Admin\ListTeacher.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

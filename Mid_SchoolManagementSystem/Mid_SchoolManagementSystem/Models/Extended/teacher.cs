@@ -32,7 +32,7 @@ namespace Mid_SchoolManagementSystem.Models.DataAccess
 
         [Display(Name = "Confirm Password")]
         [DataType(DataType.Password)]
-        [Compare("adminpassword", ErrorMessage = "Passwords do not match!")]
+        [Compare("teacherpassword", ErrorMessage = "Passwords do not match!")]
         public string teacherconfirmpassword { get; set; }
 
         [Display(Name = "Blood Group")]

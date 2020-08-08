@@ -13,6 +13,7 @@ namespace Mid_SchoolManagementSystem.Controllers
     {
         // GET: admin
         smsEntities data = new smsEntities();
+        [HttpGet]
         public ActionResult ListSection()
         {
             return View(data.section);
@@ -145,11 +146,14 @@ namespace Mid_SchoolManagementSystem.Controllers
         }//subject done
 
         //Create Teacher
-
+        
+        
+        [HttpGet]
         public ActionResult ListTeacher()
         {
             return View(data.teacher);
         }
+
 
         //Create Teacher
         [HttpGet]
