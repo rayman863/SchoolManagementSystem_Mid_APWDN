@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Mid_SchoolManagementSystem.Models.DataAccess.subject>
+﻿@model IEnumerable<Mid_SchoolManagementSystem.Models.ViewModel.SubjectClassView>
 
 @{
     Layout = null;
@@ -18,10 +18,12 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.subjectname)
+                Subject
+                @*@Html.DisplayNameFor(model => model.subjectname)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.classid)
+                Class
+                @*@Html.DisplayNameFor(model => model.classid)*@
             </th>
             <th></th>
         </tr>
@@ -30,15 +32,17 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.subjectname)
+                    @item.subject.subjectname
+                    @*@Html.DisplayFor(modelItem => item.subjectname)*@
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.classid)
+                    @(item.@class.classname)
+                    @*@Html.DisplayFor(modelItem => item.classid)*@
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "EditSubject", new { id = item.subjectid }) |
+                    @Html.ActionLink("Edit", "EditSubject", new { id = item.subject.subjectid }) |
 
-                    @Html.ActionLink("Delete", "DeleteSubject", new { id = item.subjectid })
+                    @Html.ActionLink("Delete", "DeleteSubject", new { id = item.subject.subjectid })
                 </td>
             </tr>
         }

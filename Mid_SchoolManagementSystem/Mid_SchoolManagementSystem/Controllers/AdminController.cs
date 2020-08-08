@@ -6,12 +6,14 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using System.Diagnostics;
+using System.Data.Entity.Validation;
+using Mid_SchoolManagementSystem.Models.ViewModel;
 
 namespace Mid_SchoolManagementSystem.Controllers
 {
     public class AdminController : Controller
     {
-        // GET: admin
+        // GET sectionlist
         smsEntities data = new smsEntities();
         [HttpGet]
         public ActionResult ListSection()
@@ -19,13 +21,13 @@ namespace Mid_SchoolManagementSystem.Controllers
             return View(data.section);
         }
 
-        //Create Section
+        //Create Section get
         [HttpGet]
         public ActionResult CreateSection()
         {
             return View();
         }
-
+        //create section post
         [HttpPost]
         public ActionResult CreateSection([Bind(Exclude = "id")] section section)
         {
@@ -41,7 +43,7 @@ namespace Mid_SchoolManagementSystem.Controllers
 
         }
 
-        //Edit Section
+        //Edit Section get
         [HttpGet]
         public ActionResult EditSection(int id)
         {
@@ -49,7 +51,7 @@ namespace Mid_SchoolManagementSystem.Controllers
             s.sectionid = id;
             return View(s);
         }
-
+        //edit section post
         [HttpPost]
         public ActionResult EditSection(section s, int id)
         {
@@ -61,14 +63,14 @@ namespace Mid_SchoolManagementSystem.Controllers
             return RedirectToAction("ListSection");
         }
 
-        //Delete Section
+        //Delete Section get
         [HttpGet]
         public ActionResult DeleteSection(int id)
         {
             section s = data.section.Where(a => a.sectionid == id).FirstOrDefault();
             return View(s);
         }
-
+        //delete section post
         [HttpPost, ActionName("DeleteSection")]
         public ActionResult ConfirmDelete(int id)
         {
@@ -78,20 +80,31 @@ namespace Mid_SchoolManagementSystem.Controllers
 
             return RedirectToAction("ListSection");
         }
-        //Subject create,delete,update,list
-
+        //List Subject GET
+        [HttpGet]
         public ActionResult ListSubject()
         {
-            return View(data.subject);
+            var subject_class = (from t1 in data.subject
+                                 join t2 in data.@class
+                                 on t1.classid equals t2.classid
+                                 select new SubjectClassView { subject = t1, @class = t2 }
+                                 ).ToList();
+
+            return View(subject_class);
         }
 
-        //Create Subject
+        //Create Subject GET
         [HttpGet]
         public ActionResult CreateSubject()
         {
+            var classlist = new SelectList(data.@class.ToList(), "classid", "classname");
+            ViewData["ClassList"] = classlist;
+
             return View();
         }
 
+
+        //Create Subject POST
         [HttpPost]
         public ActionResult CreateSubject([Bind(Exclude = "id")] subject subject)
         {
@@ -107,7 +120,7 @@ namespace Mid_SchoolManagementSystem.Controllers
 
         }
 
-        //Edit Subject
+        //Edit Subject GET
         [HttpGet]
         public ActionResult EditSubject(int id)
         {
@@ -116,6 +129,8 @@ namespace Mid_SchoolManagementSystem.Controllers
             return View(s);
         }
 
+
+        //Edit Subject POST
         [HttpPost]
         public ActionResult EditSubject(subject s, int id)
         {
@@ -127,7 +142,7 @@ namespace Mid_SchoolManagementSystem.Controllers
             return RedirectToAction("ListSubject");
         }
 
-        //Delete Subject
+        //Delete Subject GET
         [HttpGet]
         public ActionResult DeleteSubject(int id)
         {
@@ -135,6 +150,8 @@ namespace Mid_SchoolManagementSystem.Controllers
             return View(s);
         }
 
+
+        //Delete Subject POST
         [HttpPost, ActionName("DeleteSubject")]
         public ActionResult ConfirmDeleteSubject(int id)
         {
@@ -143,11 +160,10 @@ namespace Mid_SchoolManagementSystem.Controllers
             data.SaveChanges();
 
             return RedirectToAction("ListSubject");
-        }//subject done
+        }
 
-        //Create Teacher
-        
-        
+
+        // List Teacher
         [HttpGet]
         public ActionResult ListTeacher()
         {
@@ -159,9 +175,16 @@ namespace Mid_SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult CreateTeacher()
         {
+            var fromDatabaseEF = new SelectList(data.@class.ToList(), "classid", "classname");
+            var sec = new SelectList(data.section.ToList(), "sectionid", "sectionname");
+            var sub = new SelectList(data.subject.ToList(), "subjectid", "subjectname");
+            ViewData["classlist"] = fromDatabaseEF;
+            ViewData["sectionlist"] = sec;
+            ViewData["subjectlist"] = sub;
+
             return View();
         }
-
+        // Create Teacher Post
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateTeacher([Bind(Exclude = "id")] teacher teacher)
@@ -192,15 +215,6 @@ namespace Mid_SchoolManagementSystem.Controllers
             }
             else
             {
-                Debug.WriteLine(teacher.teacherid);
-                Debug.WriteLine(teacher.teachername);
-                Debug.WriteLine(teacher.teacheremail);
-                Debug.WriteLine(teacher.teacherpassword);
-                Debug.WriteLine(teacher.teacherconfirmpassword);
-                Debug.WriteLine(teacher.teacherbloodgroup);
-                Debug.WriteLine(teacher.teachersalary);
-                Debug.WriteLine(teacher.teacherphone);
-
                 message = "Invalid Request";
             }
 
@@ -208,15 +222,89 @@ namespace Mid_SchoolManagementSystem.Controllers
             ViewBag.Status = Status;
             return View(teacher);
         }
+        //Edit Teacher GET
+        [HttpGet]
+        public ActionResult EditTeacher(int id)
+        {
+            teacher t = data.teacher.Where(x => x.id == id).FirstOrDefault();
 
-        ////Edit Teacher
-        //[HttpGet]
-        //public ActionResult EditTeacher(int id)
-        //{
-        //    teacher t = data.teacher.Where(a => a.teacherid == id).FirstOrDefault();
-        //    t.teacherid = id;
-        //    return View(t);
-        //}
+            t.id = id;
+            teacher[] teacher = data.teacher.ToArray();
+            ViewData["teacher"] = teacher;
+
+            var fromDatabaseEF = new SelectList(data.@class.ToList(), "classid", "classname");
+            var sec = new SelectList(data.section.ToList(), "sectionid", "sectionname");
+            var sub = new SelectList(data.subject.ToList(), "subjectid", "subjectname");
+            ViewData["classlist"] = fromDatabaseEF;
+            ViewData["sectionlist"] = sec;
+            ViewData["subjectlist"] = sub;
+
+            return View(t);
+        }
+
+
+        //Edit Teacher POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditTeacher(teacher t, int id)
+        {
+
+            teacher teachertoupdate = data.teacher.Where(x => x.id == id).FirstOrDefault();
+            //Debug.WriteLine(superadmintoupdate);
+            //Debug.WriteLine(id);
+            //Debug.WriteLine(s.superadminid);
+            //Debug.WriteLine(s.superadminname);
+            //Debug.WriteLine(s.superadminpassword);
+            //Debug.WriteLine(s.superadminconfirmpassword);
+            //superadmintoupdate.id = s.id;
+            teachertoupdate.teacherid = t.teacherid;
+            teachertoupdate.teachername = t.teachername;
+            teachertoupdate.teacherpassword = Crypto.Hash(t.teacherpassword);
+            teachertoupdate.teacherconfirmpassword = Crypto.Hash(t.teacherconfirmpassword);
+
+            try
+            {
+                data.Entry(teachertoupdate).State = EntityState.Modified;
+                data.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+
+            return RedirectToAction("ListTeacher");
+
+        }
+
+
+        //Delete Teacher
+        [HttpGet]
+        public ActionResult DeleteTeacher(int id)
+        {
+            teacher t = data.teacher.Where(a => a.id == id).FirstOrDefault();
+            return View(t);
+        }
+
+        [HttpPost, ActionName("DeleteTeacher")]
+        public ActionResult ConfirmDeleteTeacher(int id)
+        {
+            teacher t = data.teacher.Where(a => a.id == id).FirstOrDefault();
+            data.teacher.Remove(t);
+            data.SaveChanges();
+
+            return RedirectToAction("ListTeacher");
+        }
+
 
 
         //create,list student
@@ -268,6 +356,72 @@ namespace Mid_SchoolManagementSystem.Controllers
             ViewBag.Status = Status;
             return View(student);
         }
+
+        //Edit Student GET
+        [HttpGet]
+        public ActionResult EditStudent(int id)
+        {
+            student s = data.student.Where(x => x.id == id).FirstOrDefault();
+            Debug.WriteLine(s);
+            s.id = id;
+            student[] student = data.student.ToArray();
+            ViewData["student"] = student;
+            return View(s);
+        }
+
+
+        //Edit Student POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditStudent(student s, int id)
+        {
+
+            student studenttoupdate = data.student.Where(x => x.id == id).FirstOrDefault();
+           // Debug.WriteLine(studenttoupdate);
+          //  Debug.WriteLine(id);
+           // Debug.WriteLine(s.studentid);
+           // Debug.WriteLine(s.studentname);
+           // Debug.WriteLine(s.studentpassword);
+           // Debug.WriteLine(s.studentconfirmpassword);
+           
+            studenttoupdate.studentid = s.studentid;
+            studenttoupdate.studentname = s.studentname;
+            studenttoupdate.studentpassword = Crypto.Hash(s.studentpassword);
+            studenttoupdate.studentconfirmpassword = Crypto.Hash(s.studentconfirmpassword);
+            studenttoupdate.studentdob = s.studentdob;
+            studenttoupdate.studentphone = s.studentphone;
+            studenttoupdate.studentaddress = s.studentaddress;
+            studenttoupdate.studentemail = s.studentemail;
+            studenttoupdate.studentbloodgroup = s.studentbloodgroup;
+            studenttoupdate.studentfees = s.studentfees;
+            studenttoupdate.classid = s.classid;
+            studenttoupdate.sectionid = s.sectionid;
+
+            try
+            {
+                data.Entry(studenttoupdate).State = EntityState.Modified;
+                data.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+
+            return RedirectToAction("ListStudent");
+
+        }
+
+
 
         //nonaction teacher start
         [NonAction]

@@ -128,7 +128,35 @@ namespace Mid_SchoolManagementSystem.Controllers
 
         }
 
+        // DELETE Super GET
+        [HttpGet]
+        public ActionResult DeleteSuperAdmin(int id)
+        {
+            superadmin s = data.superadmin.Where(a => a.id == id).FirstOrDefault();
+            return View(s);
+        }
 
+
+        // DELETE Super POST
+        [HttpPost, ActionName("DeleteSuperAdmin")]
+        public ActionResult ConfirmDeleteSuperAdmin(int id)
+        {
+            superadmin s = data.superadmin.Where(a => a.id == id).FirstOrDefault();
+            data.superadmin.Remove(s);
+            data.SaveChanges();
+
+            return RedirectToAction("ListSuperAdmin");
+        }
+
+
+
+        //List Admin
+
+        [HttpGet]
+        public ActionResult ListAdmin()
+        {
+            return View(data.admin.ToList());
+        }
 
         //Create Admin GET
         [HttpGet]
@@ -175,6 +203,83 @@ namespace Mid_SchoolManagementSystem.Controllers
             ViewBag.Message = message;
             ViewBag.Status = Status;
             return View(admin);
+        }
+
+        //Edit Admin Get
+
+        [HttpGet]
+        public ActionResult EditAdmin(int id)
+        {
+            admin a = data.admin.Where(x => x.id == id).FirstOrDefault();
+
+            a.id = id;
+            admin[] admin = data.admin.ToArray();
+            ViewData["admin"] = admin;
+            return View(a);
+        }
+
+
+        //Edit  Admin POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditAdmin(admin a, int id)
+        {
+
+            admin admintoupdate = data.admin.Where(x => x.id == id).FirstOrDefault();
+            //Debug.WriteLine(admintoupdate);
+            //Debug.WriteLine(id);
+            //Debug.WriteLine(s.superadminid);
+            //Debug.WriteLine(s.superadminname);
+            //Debug.WriteLine(s.superadminpassword);
+            //Debug.WriteLine(s.superadminconfirmpassword);
+            //superadmintoupdate.id = s.id;
+            admintoupdate.adminid = a.adminid;
+            admintoupdate.adminname = a.adminname;
+            admintoupdate.adminpassword = Crypto.Hash(a.adminpassword);
+            admintoupdate.adminconfirmpassword = Crypto.Hash(a.adminconfirmpassword);
+
+            try
+            {
+                data.Entry(admintoupdate).State = EntityState.Modified;
+                data.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+
+            return RedirectToAction("ListAdmin");
+
+        }
+
+        //Delete Admin Get
+        [HttpGet]
+        public ActionResult DeleteAdmin(int id)
+        {
+            admin ad = data.admin.Where(a => a.id == id).FirstOrDefault();
+            return View(ad);
+        }
+
+        //Delete Admin Post
+
+        [HttpPost, ActionName("DeleteAdmin")]
+        public ActionResult ConfirmDeleteAdmin(int id)
+        {
+            admin ad = data.admin.Where(a => a.id == id).FirstOrDefault();
+            data.admin.Remove(ad);
+            data.SaveChanges();
+
+            return RedirectToAction("ListAdmin");
         }
 
 

@@ -13,18 +13,12 @@
 </head>
 <body>
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Create New", "CreateStudent")
     </p>
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.studentconfirmpassword)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.studentname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.studentpassword)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.studentdob)
@@ -56,13 +50,7 @@
     @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.studentconfirmpassword)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.studentname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.studentpassword)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.studentdob)
@@ -89,9 +77,9 @@
                 @Html.DisplayFor(modelItem => item.sectionid)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "EditStudent", new { id = item.id }) |
+               @* @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                @Html.ActionLink("Delete", "DeleteStudent", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
     }

@@ -9,6 +9,8 @@ namespace Mid_SchoolManagementSystem.Models.DataAccess
     [MetadataType(typeof(studentdata))]
     public partial class student
     {
+        [Display(Name = "Student Confirm Password")]
+         [DataType(DataType.Password)]
         public string studentconfirmpassword { get; set; }
     }
     public class studentdata
@@ -54,7 +56,7 @@ namespace Mid_SchoolManagementSystem.Models.DataAccess
         public string studentemail { get; set; }
         
         //stbloodgroup
-        [Display(Name = "Student bloodgroup")]
+        [Display(Name = "Student Blood Group")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Blood group need to be mentioned")]
        public string studentbloodgroup { get; set; }
 
@@ -64,12 +66,12 @@ namespace Mid_SchoolManagementSystem.Models.DataAccess
         public int studentfees { get; set; }
 
         //classid
-        [Display(Name = "Class id")]
+        [Display(Name = "Class ID")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "class id required")]
         public int classid { get; set; }
 
         //sectionid
-        [Display(Name = "Section id")]
+        [Display(Name = "Section ID")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "section id required")]
         public int sectionid { get; set; }
     }

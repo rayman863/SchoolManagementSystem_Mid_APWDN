@@ -200,6 +200,7 @@
     <Compile Include="Models\Extended\timeslot.cs" />
     <Compile Include="Models\Extended\tpe.cs" />
     <Compile Include="Models\Extended\uploadnote.cs" />
+    <Compile Include="Models\ViewModel\SubjectClassView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -240,6 +241,13 @@
     <Content Include="Views\SuperAdmin\ListSuperAdmin.cshtml" />
     <Content Include="Views\SuperAdmin\EditSuperAdmin.cshtml" />
     <Content Include="Views\Admin\ListTeacher.cshtml" />
+    <Content Include="Views\Admin\EditStudent.cshtml" />
+    <Content Include="Views\Admin\EditTeacher.cshtml" />
+    <Content Include="Views\Admin\DeleteTeacher.cshtml" />
+    <Content Include="Views\SuperAdmin\DeleteAdmin.cshtml" />
+    <Content Include="Views\SuperAdmin\EditAdmin.cshtml" />
+    <Content Include="Views\SuperAdmin\ListAdmin.cshtml" />
+    <Content Include="Views\SuperAdmin\DeleteSuperAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

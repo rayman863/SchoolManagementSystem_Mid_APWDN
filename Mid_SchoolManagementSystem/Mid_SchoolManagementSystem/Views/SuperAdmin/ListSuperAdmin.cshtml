@@ -23,9 +23,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.superadminname)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.superadminpassword)
-            </th>
             <th></th>
         </tr>
 
@@ -39,12 +36,8 @@
                     @Html.DisplayFor(modelItem => item.superadminname)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.superadminpassword)
-                </td>
-                <td>
                     @Html.ActionLink("Edit", "EditSuperAdmin", new { id = item.id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                    @Html.ActionLink("Delete", "DeleteSuperAdmin", new { id = item.id })
                 </td>
             </tr>
         }
