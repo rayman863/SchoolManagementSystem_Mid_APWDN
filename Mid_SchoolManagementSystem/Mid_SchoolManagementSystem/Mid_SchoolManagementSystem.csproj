@@ -273,6 +273,10 @@
     <Content Include="Views\Shared\_TeacherLayout.cshtml" />
     <Content Include="Views\Teacher\UploadFile.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\Teacher\CreateCourseNotice.cshtml" />
+    <Content Include="Views\Teacher\EditTeacherProfile.cshtml" />
+    <Content Include="Views\Student\EditStudentProfile.cshtml" />
+    <Content Include="Views\Shared\_StudentLayout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

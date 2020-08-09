@@ -134,14 +134,17 @@ namespace Mid_SchoolManagementSystem.Controllers
             return RedirectToAction("Login", "User");
         }
 
-        //Create Subject GET
+
         [HttpGet]
         public ActionResult CreateSubject()
         {
             if ((string)Session["user"] != null)
             {
-                var classlist = new SelectList(data.@class.ToList(), "classid", "classname");
-                ViewData["ClassList"] = classlist;
+                //var classlist = new SelectList(data.@class.ToList(), "classid", "classname");
+                // ViewData["ClassList"] = classlist;
+                @class[] classes = data.@class.ToArray();
+
+                ViewData["classlist"] = classes;
 
                 return View();
             }
@@ -153,14 +156,30 @@ namespace Mid_SchoolManagementSystem.Controllers
         [HttpPost]
         public ActionResult CreateSubject([Bind(Exclude = "id")] subject subject)
         {
+            bool status = false;
+            string message = "";
             if ((string)Session["user"] != null)
             {
                 if (ModelState.IsValid)
                 {
+                    var subjectExistsAdmin = SubjectExistsAdmin(subject.subjectname, subject.classid);
+                    if (subjectExistsAdmin)
+                    {
+                        //Debug.WriteLine(subjectExistsAdmin);
+                        ModelState.AddModelError("subjectExistsAdmin", "One subject cannot be assigned multiple times");
+                        //return View();
+                        //message = "invalid";
+
+                    }
+                    //Debug.WriteLine(subject);
+
                     data.subject.Add(subject);
                     data.SaveChanges();
                     return RedirectToAction("ListSubject");
                 }
+
+                ViewBag.Message = message;
+                ViewBag.Status = status;
                 return View(subject);
             }
             return RedirectToAction("Login", "User");
@@ -174,6 +193,8 @@ namespace Mid_SchoolManagementSystem.Controllers
             {
                 subject s = data.subject.Where(a => a.subjectid == id).FirstOrDefault();
                 s.subjectid = id;
+                var classList = new SelectList(data.@class.ToList(), "classid", "classname");
+                ViewData["ClassList"] = classList;
                 return View(s);
             }
             return RedirectToAction("Login", "User");
@@ -678,5 +699,29 @@ namespace Mid_SchoolManagementSystem.Controllers
                 return newID;
             }
         }//non action student
+        
+        
+        //subjectexistadmin nonaction
+
+        [NonAction]
+        public bool SubjectExistsAdmin(string subjectname, int classid)
+        {
+
+            var name = (from subject in data.subject
+                        where
+                          subject.subjectname == subjectname &&
+                          subject.classid == classid
+                        select subject.subjectname).FirstOrDefault();
+            //Debug.WriteLine(name);
+            /*if (name==null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }*/
+            return name != null;
+        }
     }
 }

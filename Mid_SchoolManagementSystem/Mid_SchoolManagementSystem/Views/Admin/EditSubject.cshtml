@@ -1,8 +1,7 @@
 ﻿@model Mid_SchoolManagementSystem.Models.DataAccess.subject
 
 @{
-    ViewBag.Title = "EditSubject";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = null;
 }
 
 <!DOCTYPE html>
@@ -23,7 +22,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>subject</h4>
+            <h4>Edit Subject</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.subjectid)
