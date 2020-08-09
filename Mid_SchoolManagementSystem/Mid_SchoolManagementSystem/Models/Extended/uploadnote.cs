@@ -15,16 +15,16 @@ namespace Mid_SchoolManagementSystem.Models.DataAccess
     {
         public int uploadid { get; set; }
 
-        [Display(Name = "Directory Path")]
+        // [Display(Name = "Directory Path")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Not a valid directory")]
 
         public string directory { get; set; }
 
-        [Display(Name = "File Name:")]
+        [Display(Name = "Upload File")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "You must select One file")]
         public string filename { get; set; }
 
-        [Display(Name = "Upload Date")]
+        //[Display(Name = "Upload Date")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Not a valid Date")]
         public System.DateTime datetime { get; set; }
         public int sectionid { get; set; }

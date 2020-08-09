@@ -69,7 +69,6 @@ C:\Users\rayma\OneDrive\AIUB\ATP .NET\SchoolManagementSystem_Mid_APWDN\Mid_Schoo
 C:\Users\rayma\OneDrive\AIUB\ATP .NET\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\bin\System.Web.Helpers.xml
 C:\Users\rayma\OneDrive\AIUB\ATP .NET\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\bin\System.Web.Mvc.xml
 C:\Users\rayma\OneDrive\AIUB\ATP .NET\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\rayma\OneDrive\AIUB\ATP .NET\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\obj\Debug\Mid_SchoolManagementSystem.csprojAssemblyReference.cache
 C:\Users\rayma\OneDrive\AIUB\ATP .NET\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\obj\Debug\Mid_SchoolManagementSystem.csproj.CoreCompileInputs.cache
 C:\Users\rayma\OneDrive\AIUB\ATP .NET\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\obj\Debug\Mid_SchoolManagementSystem.csproj.CopyComplete
 C:\Users\rayma\OneDrive\AIUB\ATP .NET\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\obj\Debug\Mid_SchoolManagementSystem.dll
@@ -226,3 +225,5 @@ C:\Users\Shihab Uddin\source\repos\SchoolManagementSystem_Mid_APWDN\Mid_SchoolMa
 C:\Users\Shihab Uddin\source\repos\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\obj\Debug\Mid_SchoolManagementSystem.dll
 C:\Users\Shihab Uddin\source\repos\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\obj\Debug\Mid_SchoolManagementSystem.pdb
 C:\Users\Shihab Uddin\source\repos\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\obj\Debug\Mid_SchoolManagementSystem.csprojAssemblyReference.cache
+C:\Users\rayma\OneDrive\AIUB\ATP .NET\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\bin\Rotativa.dll
+C:\Users\rayma\OneDrive\AIUB\ATP .NET\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\obj\Debug\Mid_SchoolManagementSystem.csprojAssemblyReference.cache

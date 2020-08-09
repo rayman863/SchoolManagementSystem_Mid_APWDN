@@ -1,0 +1,29 @@
+﻿
+@model Mid_SchoolManagementSystem.Models.DataAccess.uploadnote
+
+@{
+    ViewBag.Title = "UploadFile";
+    Layout = "~/Views/Shared/_TeacherLayout.cshtml";
+}
+
+<h2>UploadFile</h2>
+@using (Html.BeginForm("UploadFile", "Teacher", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    {
+
+        <div class="form-group">
+            @Html.TextBox("file", "", new { type = "file" }) <br />
+
+            <input type="submit" value="Upload" />
+
+            @ViewBag.Message
+
+        </div>
+
+        <div>
+            @Html.ActionLink("Clear", "UploadFile")
+        </div>
+    }
+}
+
+

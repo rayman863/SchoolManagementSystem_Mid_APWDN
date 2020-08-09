@@ -229,11 +229,7 @@ namespace Mid_SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult ListTeacher()
         {
-            if ((string)Session["user"] != null)
-            {
-                return View(data.teacher);
-            }
-            return RedirectToAction("Login", "User");
+            return View(data.teacher);
         }
 
 
@@ -241,83 +237,71 @@ namespace Mid_SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult CreateTeacher()
         {
-            if ((string)Session["user"] != null)
-            {
-                var fromDatabaseEF = new SelectList(data.@class.ToList(), "classid", "classname");
-                var sec = new SelectList(data.section.ToList(), "sectionid", "sectionname");
-                var sub = new SelectList(data.subject.ToList(), "subjectid", "subjectname");
-                ViewData["classlist"] = fromDatabaseEF;
-                ViewData["sectionlist"] = sec;
-                ViewData["subjectlist"] = sub;
+            var fromDatabaseEF = new SelectList(data.@class.ToList(), "classid", "classname");
+            var sec = new SelectList(data.section.ToList(), "sectionid", "sectionname");
+            var sub = new SelectList(data.subject.ToList(), "subjectid", "subjectname");
+            ViewData["classlist"] = fromDatabaseEF;
+            ViewData["sectionlist"] = sec;
+            ViewData["subjectlist"] = sub;
 
-                return View();
-            }
-            return RedirectToAction("Login", "User");
+            return View();
         }
         // Create Teacher Post
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateTeacher([Bind(Exclude = "id")] teacher teacher)
         {
-            if ((string)Session["user"] != null)
+            bool Status = false;
+            string message = "";
+
+            teacher.teacherid = generateTeacherID();//"20-0005-01";
+
+            if (ModelState.IsValid)
             {
-                bool Status = false;
-                string message = "";
-
-                teacher.teacherid = generateTeacherID();//"20-0005-01";
-
-                if (ModelState.IsValid)
+                var nameExistTeacher = NameExistsTeacher(teacher.teachername);
+                if (nameExistTeacher)
                 {
-                    var nameExistTeacher = NameExistsTeacher(teacher.teachername);
-                    if (nameExistTeacher)
-                    {
-                        ModelState.AddModelError("NameExistTeacher", "Teacher name already exists");
-                        return View(teacher);
-                    }
-
-                    teacher.teacherpassword = Crypto.Hash(teacher.teacherpassword);
-                    teacher.teacherconfirmpassword = Crypto.Hash(teacher.teacherconfirmpassword);
-
-
-                    data.teacher.Add(teacher);
-                    data.SaveChanges();
-                    message = "Teacher Account " + teacher.teachername + " with ID = " + teacher.teacherid + " has been created.";
-                    Status = true;
-
-                }
-                else
-                {
-                    message = "Invalid Request";
+                    ModelState.AddModelError("NameExistTeacher", "Teacher name already exists");
+                    return View(teacher);
                 }
 
-                ViewBag.Message = message;
-                ViewBag.Status = Status;
-                return View(teacher);
+                teacher.teacherpassword = Crypto.Hash(teacher.teacherpassword);
+                teacher.teacherconfirmpassword = Crypto.Hash(teacher.teacherconfirmpassword);
+
+
+                data.teacher.Add(teacher);
+                data.SaveChanges();
+                message = "Teacher Account " + teacher.teachername + " with ID = " + teacher.teacherid + " has been created.";
+                Status = true;
+
             }
-            return RedirectToAction("Login", "User");
+            else
+            {
+                message = "Invalid Request";
+            }
+
+            ViewBag.Message = message;
+            ViewBag.Status = Status;
+            return View(teacher);
         }
         //Edit Teacher GET
         [HttpGet]
         public ActionResult EditTeacher(int id)
         {
-            if ((string)Session["user"] != null)
-            {
-                teacher t = data.teacher.Where(x => x.id == id).FirstOrDefault();
+            teacher t = data.teacher.Where(x => x.id == id).FirstOrDefault();
 
-                t.id = id;
-                teacher[] teacher = data.teacher.ToArray();
-                ViewData["teacher"] = teacher;
+            t.id = id;
+            teacher[] teacher = data.teacher.ToArray();
+            ViewData["teacher"] = teacher;
 
-                var fromDatabaseEF = new SelectList(data.@class.ToList(), "classid", "classname");
-                var sec = new SelectList(data.section.ToList(), "sectionid", "sectionname");
-                var sub = new SelectList(data.subject.ToList(), "subjectid", "subjectname");
-                ViewData["classlist"] = fromDatabaseEF;
-                ViewData["sectionlist"] = sec;
-                ViewData["subjectlist"] = sub;
+            var fromDatabaseEF = new SelectList(data.@class.ToList(), "classid", "classname");
+            var sec = new SelectList(data.section.ToList(), "sectionid", "sectionname");
+            var sub = new SelectList(data.subject.ToList(), "subjectid", "subjectname");
+            ViewData["classlist"] = fromDatabaseEF;
+            ViewData["sectionlist"] = sec;
+            ViewData["subjectlist"] = sub;
 
-                return View(t);
-            }
-            return RedirectToAction("Login", "User");
+            return View(t);
         }
 
 
@@ -326,44 +310,68 @@ namespace Mid_SchoolManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditTeacher(teacher t, int id)
         {
-            if ((string)Session["user"] != null)
+            teacher teacher = new teacher();
+            bool Status = false;
+            string message = "";
+
+            teacher teachertoupdate = data.teacher.Where(x => x.id == id).FirstOrDefault();
+            //Debug.WriteLine(superadmintoupdate);
+            //Debug.WriteLine(id);
+            //Debug.WriteLine(s.superadminid);
+            //Debug.WriteLine(s.superadminname);
+            //Debug.WriteLine(s.superadminpassword);
+            //Debug.WriteLine(s.superadminconfirmpassword);
+            //superadmintoupdate.id = s.id;
+            teachertoupdate.teacherid = t.teacherid;
+            teachertoupdate.teachername = t.teachername;
+            teachertoupdate.teacherpassword = Crypto.Hash(t.teacherpassword);
+            teachertoupdate.teacherconfirmpassword = Crypto.Hash(t.teacherconfirmpassword);
+            teachertoupdate.sectionid = t.sectionid;
+            teachertoupdate.classid = t.classid;
+            teachertoupdate.subjectid = t.subjectid;
+
+            try
             {
-                teacher teachertoupdate = data.teacher.Where(x => x.id == id).FirstOrDefault();
-                //Debug.WriteLine(superadmintoupdate);
-                //Debug.WriteLine(id);
-                //Debug.WriteLine(s.superadminid);
-                //Debug.WriteLine(s.superadminname);
-                //Debug.WriteLine(s.superadminpassword);
-                //Debug.WriteLine(s.superadminconfirmpassword);
-                //superadmintoupdate.id = s.id;
-                teachertoupdate.teacherid = t.teacherid;
-                teachertoupdate.teachername = t.teachername;
-                teachertoupdate.teacherpassword = Crypto.Hash(t.teacherpassword);
-                teachertoupdate.teacherconfirmpassword = Crypto.Hash(t.teacherconfirmpassword);
 
-                try
+                //data.SaveChanges();
+                if (ModelState.IsValid)
                 {
-                    data.Entry(teachertoupdate).State = EntityState.Modified;
-                    data.SaveChanges();
-                }
-                catch (DbEntityValidationException e)
-                {
-                    foreach (var eve in e.EntityValidationErrors)
+                    var nameExistsSuper = NameExistsTeacher(teachertoupdate.teachername);
+                    if (nameExistsSuper)
                     {
-                        Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                            eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                        foreach (var ve in eve.ValidationErrors)
-                        {
-                            Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
-                                ve.PropertyName, ve.ErrorMessage);
-                        }
+                        ModelState.AddModelError("NameExistTeacher", " Teacher name already exists");
+                        return View(teacher);
                     }
-                    throw;
-                }
 
-                return RedirectToAction("ListTeacher");
+                    data.SaveChanges();
+                    message = " Teacher Account  with ID = " + teachertoupdate.teacherid + " has been edited.";
+                    Status = true;
+                }
+                else
+                {
+                    message = "Invalid Request";
+                }
+                ViewBag.Message = message;
+                ViewBag.Status = Status;
+                return View(teacher);
             }
-            return RedirectToAction("Login", "User");
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Debug.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+
+            //return RedirectToAction("ListTeacher");
+
         }
 
 
@@ -371,27 +379,20 @@ namespace Mid_SchoolManagementSystem.Controllers
         [HttpGet]
         public ActionResult DeleteTeacher(int id)
         {
-            if ((string)Session["user"] != null)
-            {
-                teacher t = data.teacher.Where(a => a.id == id).FirstOrDefault();
-                return View(t);
-            }
-            return RedirectToAction("Login", "User");
+            teacher t = data.teacher.Where(a => a.id == id).FirstOrDefault();
+            return View(t);
         }
 
         [HttpPost, ActionName("DeleteTeacher")]
         public ActionResult ConfirmDeleteTeacher(int id)
         {
-            if ((string)Session["user"] != null)
-            {
-                teacher t = data.teacher.Where(a => a.id == id).FirstOrDefault();
-                data.teacher.Remove(t);
-                data.SaveChanges();
+            teacher t = data.teacher.Where(a => a.id == id).FirstOrDefault();
+            data.teacher.Remove(t);
+            data.SaveChanges();
 
-                return RedirectToAction("ListTeacher");
-            }
-            return RedirectToAction("Login", "User");
+            return RedirectToAction("ListTeacher");
         }
+
 
 
 
@@ -561,6 +562,46 @@ namespace Mid_SchoolManagementSystem.Controllers
             }
             return RedirectToAction("Login", "User");
         }
+
+        //GENERATE REPORT
+        [HttpGet]
+        public ActionResult FinancialReport()
+        {
+            var teachersalary = (from teacher in data.teacher select teacher.teachersalary).Sum();
+
+            int teacher_salary = Convert.ToInt32(teachersalary);
+
+            var studentfee = (from student in data.student select student.studentfees).Sum();
+
+            int student_fee = Convert.ToInt32(studentfee);
+
+            int accounts = student_fee - teacher_salary;
+
+            var studentcount = (from student in data.student select student.sectionid).Count();
+
+            int student_count = Convert.ToInt32(studentcount);
+
+            var teachercount = (from teacher in data.teacher select teacher.teacherid).Count();
+
+            int teacher_count = Convert.ToInt32(teachercount);
+
+            TempData["studentfee_total"] = student_fee;
+            TempData["teachersalary_total"] = teacher_salary;
+            TempData["account_total"] = accounts;
+            TempData["student_count"] = student_count;
+            TempData["teacher_count"] = teacher_count;
+
+            return View();
+
+        }
+
+        //PDF GENERATE
+        
+        public ActionResult GeneratePDF()
+        {
+            return new Rotativa.ActionAsPdf("FinancialReport");
+        }
+
 
         //nonaction teacher start
         [NonAction]
