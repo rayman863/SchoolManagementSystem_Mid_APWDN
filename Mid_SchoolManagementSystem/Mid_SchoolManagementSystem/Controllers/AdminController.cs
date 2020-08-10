@@ -169,7 +169,7 @@ namespace Mid_SchoolManagementSystem.Controllers
                         ModelState.AddModelError("subjectExistsAdmin", "One subject cannot be assigned multiple times");
                         //return View();
                         //message = "invalid";
-
+                        return RedirectToAction("ListSubject", "Admin");
                     }
                     //Debug.WriteLine(subject);
 

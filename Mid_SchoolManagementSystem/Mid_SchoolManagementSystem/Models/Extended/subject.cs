@@ -15,11 +15,11 @@ namespace Mid_SchoolManagementSystem.Models.DataAccess
     {
         [Display(Name = "Subject ID")]
         public int subjectid { get; set; }
-        [Display(Name = "Student Name")]
+        [Display(Name = "Subject Name")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Subject Name is required")]
         public string subjectname { get; set; }
 
-        [Display(Name = "Class id")]
+        [Display(Name = "Class Name")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Class id required")]
         public int classid { get; set; }
     }

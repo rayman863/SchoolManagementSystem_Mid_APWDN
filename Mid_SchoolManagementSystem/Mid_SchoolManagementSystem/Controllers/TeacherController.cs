@@ -197,9 +197,30 @@ namespace Mid_SchoolManagementSystem.Controllers
 
         public ActionResult CreateCourseNotice()
         {
+            if ((string)Session["user"] != null)
+            {
+                //string teacherid = (string)Session["user"];
+                section[] sec = data.section.ToArray();
+
+                TempData["sectionlist"] = sec;
+                subject[] sub = data.subject.ToArray();
+
+                TempData["subjectlist"] = sub;
+
+                return View();
+            }
+            
+            return RedirectToAction("Login", "User");
+        }
+/*
+        [HttpPost]
+
+        public ActionResult CreateCourseNotice(coursenotice note)
+        {
+            
             return View();
         }
-
+*/
     }
 
 }
