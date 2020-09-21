@@ -98,30 +98,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.classid, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownList("classid", (IEnumerable<SelectListItem>)ViewData["classlist"])
-                        @Html.ValidationMessageFor(model => model.classid, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.sectionid, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownList("sectionid", (IEnumerable<SelectListItem>)ViewData["sectionlist"])
-                        @Html.ValidationMessageFor(model => model.sectionid, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.subjectid, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownList("subjectid", (IEnumerable<SelectListItem>)ViewData["subjectlist"])
-                        @Html.ValidationMessageFor(model => model.subjectid, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
+               
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Save" class="btn btn-default" />

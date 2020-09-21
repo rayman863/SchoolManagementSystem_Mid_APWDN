@@ -52,6 +52,10 @@
       <PropertyRef Name="gradeid" />
     </Key>
     <Property Name="gradeid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="classname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="sectionname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="subjectname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="studentname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="quiz1" Type="Int32" Nullable="false" />
     <Property Name="quiz2" Type="Int32" Nullable="false" />
     <Property Name="assignment1" Type="Int32" Nullable="false" />
@@ -183,22 +187,22 @@
     <Property Name="subjectid" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityContainer Name="smsEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="admin" EntityType="Self.admin" />
-    <EntitySet Name="assignment" EntityType="Self.assignment" />
-    <EntitySet Name="class" EntityType="Self.class" />
-    <EntitySet Name="coursenotice" EntityType="Self.coursenotice" />
-    <EntitySet Name="generalnotice" EntityType="Self.generalnotice" />
-    <EntitySet Name="grade" EntityType="Self.grade" />
+    <EntitySet Name="admins" EntityType="Self.admin" />
+    <EntitySet Name="assignments" EntityType="Self.assignment" />
+    <EntitySet Name="classes" EntityType="Self.class" />
+    <EntitySet Name="coursenotices" EntityType="Self.coursenotice" />
+    <EntitySet Name="generalnotices" EntityType="Self.generalnotice" />
+    <EntitySet Name="grades" EntityType="Self.grade" />
     <EntitySet Name="homework" EntityType="Self.homework" />
-    <EntitySet Name="live" EntityType="Self.live" />
-    <EntitySet Name="routine" EntityType="Self.routine" />
-    <EntitySet Name="section" EntityType="Self.section" />
-    <EntitySet Name="student" EntityType="Self.student" />
-    <EntitySet Name="subject" EntityType="Self.subject" />
-    <EntitySet Name="superadmin" EntityType="Self.superadmin" />
-    <EntitySet Name="teacher" EntityType="Self.teacher" />
-    <EntitySet Name="timeslot" EntityType="Self.timeslot" />
-    <EntitySet Name="tpe" EntityType="Self.tpe" />
-    <EntitySet Name="uploadnote" EntityType="Self.uploadnote" />
+    <EntitySet Name="lives" EntityType="Self.live" />
+    <EntitySet Name="routines" EntityType="Self.routine" />
+    <EntitySet Name="sections" EntityType="Self.section" />
+    <EntitySet Name="students" EntityType="Self.student" />
+    <EntitySet Name="subjects" EntityType="Self.subject" />
+    <EntitySet Name="superadmins" EntityType="Self.superadmin" />
+    <EntitySet Name="teachers" EntityType="Self.teacher" />
+    <EntitySet Name="timeslots" EntityType="Self.timeslot" />
+    <EntitySet Name="tpes" EntityType="Self.tpe" />
+    <EntitySet Name="uploadnotes" EntityType="Self.uploadnote" />
   </EntityContainer>
 </Schema>

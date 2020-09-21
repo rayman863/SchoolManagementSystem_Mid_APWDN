@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="smsModelStoreContainer" CdmEntityContainer="smsEntities">
-    <EntitySetMapping Name="admin">
+    <EntitySetMapping Name="admins">
       <EntityTypeMapping TypeName="smsModel.admin">
         <MappingFragment StoreEntitySet="admin">
           <ScalarProperty Name="id" ColumnName="id" />
@@ -11,7 +11,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="assignment">
+    <EntitySetMapping Name="assignments">
       <EntityTypeMapping TypeName="smsModel.assignment">
         <MappingFragment StoreEntitySet="assignment">
           <ScalarProperty Name="assignmentid" ColumnName="assignmentid" />
@@ -24,7 +24,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="class">
+    <EntitySetMapping Name="classes">
       <EntityTypeMapping TypeName="smsModel.class">
         <MappingFragment StoreEntitySet="class">
           <ScalarProperty Name="classid" ColumnName="classid" />
@@ -32,7 +32,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="coursenotice">
+    <EntitySetMapping Name="coursenotices">
       <EntityTypeMapping TypeName="smsModel.coursenotice">
         <MappingFragment StoreEntitySet="coursenotice">
           <ScalarProperty Name="noticeid" ColumnName="noticeid" />
@@ -43,7 +43,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="generalnotice">
+    <EntitySetMapping Name="generalnotices">
       <EntityTypeMapping TypeName="smsModel.generalnotice">
         <MappingFragment StoreEntitySet="generalnotice">
           <ScalarProperty Name="noticeid" ColumnName="noticeid" />
@@ -53,10 +53,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="grade">
+    <EntitySetMapping Name="grades">
       <EntityTypeMapping TypeName="smsModel.grade">
         <MappingFragment StoreEntitySet="grade">
           <ScalarProperty Name="gradeid" ColumnName="gradeid" />
+          <ScalarProperty Name="classname" ColumnName="classname" />
+          <ScalarProperty Name="sectionname" ColumnName="sectionname" />
+          <ScalarProperty Name="subjectname" ColumnName="subjectname" />
+          <ScalarProperty Name="studentname" ColumnName="studentname" />
           <ScalarProperty Name="quiz1" ColumnName="quiz1" />
           <ScalarProperty Name="quiz2" ColumnName="quiz2" />
           <ScalarProperty Name="assignment1" ColumnName="assignment1" />
@@ -81,7 +85,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="live">
+    <EntitySetMapping Name="lives">
       <EntityTypeMapping TypeName="smsModel.live">
         <MappingFragment StoreEntitySet="live">
           <ScalarProperty Name="liveid" ColumnName="liveid" />
@@ -91,7 +95,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="routine">
+    <EntitySetMapping Name="routines">
       <EntityTypeMapping TypeName="smsModel.routine">
         <MappingFragment StoreEntitySet="routine">
           <ScalarProperty Name="routineid" ColumnName="routineid" />
@@ -99,7 +103,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="section">
+    <EntitySetMapping Name="sections">
       <EntityTypeMapping TypeName="smsModel.section">
         <MappingFragment StoreEntitySet="section">
           <ScalarProperty Name="sectionid" ColumnName="sectionid" />
@@ -108,7 +112,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="student">
+    <EntitySetMapping Name="students">
       <EntityTypeMapping TypeName="smsModel.student">
         <MappingFragment StoreEntitySet="student">
           <ScalarProperty Name="id" ColumnName="id" />
@@ -126,7 +130,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="subject">
+    <EntitySetMapping Name="subjects">
       <EntityTypeMapping TypeName="smsModel.subject">
         <MappingFragment StoreEntitySet="subject">
           <ScalarProperty Name="subjectid" ColumnName="subjectid" />
@@ -135,7 +139,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="superadmin">
+    <EntitySetMapping Name="superadmins">
       <EntityTypeMapping TypeName="smsModel.superadmin">
         <MappingFragment StoreEntitySet="superadmin">
           <ScalarProperty Name="id" ColumnName="id" />
@@ -145,7 +149,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="teacher">
+    <EntitySetMapping Name="teachers">
       <EntityTypeMapping TypeName="smsModel.teacher">
         <MappingFragment StoreEntitySet="teacher">
           <ScalarProperty Name="id" ColumnName="id" />
@@ -162,7 +166,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="timeslot">
+    <EntitySetMapping Name="timeslots">
       <EntityTypeMapping TypeName="smsModel.timeslot">
         <MappingFragment StoreEntitySet="timeslot">
           <ScalarProperty Name="timeslotid" ColumnName="timeslotid" />
@@ -174,7 +178,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tpe">
+    <EntitySetMapping Name="tpes">
       <EntityTypeMapping TypeName="smsModel.tpe">
         <MappingFragment StoreEntitySet="tpe">
           <ScalarProperty Name="tpeid" ColumnName="tpeid" />
@@ -188,7 +192,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="uploadnote">
+    <EntitySetMapping Name="uploadnotes">
       <EntityTypeMapping TypeName="smsModel.uploadnote">
         <MappingFragment StoreEntitySet="uploadnote">
           <ScalarProperty Name="uploadid" ColumnName="uploadid" />

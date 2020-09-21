@@ -46,7 +46,6 @@ namespace Mid_SchoolManagementSystem.Controllers
             return RedirectToAction("Login", "User");
         }
 
-
         //Edit Student POST
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -96,6 +95,15 @@ namespace Mid_SchoolManagementSystem.Controllers
                 }
 
                 return RedirectToAction("StudentIndex");
+            }
+            return RedirectToAction("Login", "User");
+        }
+
+        public ActionResult CheckGrades()
+        {
+            if ((string)Session["user"] != null)
+            {
+                return View(data.grade);
             }
             return RedirectToAction("Login", "User");
         }

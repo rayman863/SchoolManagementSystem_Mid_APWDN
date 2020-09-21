@@ -192,6 +192,104 @@ namespace Mid_SchoolManagementSystem.Controllers
             return RedirectToAction("TeacherIndex");
 
         }
+
+        //Grade Upload Index
+
+        public ActionResult Grades()
+        {
+            if ((string)Session["user"] != null)
+            {
+                return View(data.grade);
+            }
+            return RedirectToAction("Login", "User");
+        }
+
+        //Uploda Grades Get
+
+        [HttpGet]
+
+        public ActionResult UploadGrade()
+        {
+
+            var cls = new SelectList(data.@class.ToList(), "classname", "classname");
+            var stu = new SelectList(data.student.ToList(), "studentname", "studentname");
+            var sec = new SelectList(data.section.ToList(), "sectionname", "sectionname");
+            var sub = new SelectList(data.subject.ToList(), "subjectname", "subjectname");
+            ViewData["classlist"] = cls;
+            ViewData["studentlist"] = stu;
+            ViewData["sectionlist"] = sec;
+            ViewData["subjectlist"] = sub;
+
+            return View();
+        }
+        
+        //Upload Grade Post
+        [HttpPost]
+        public ActionResult UploadGrade(grade grade)
+        {
+            if ((string)Session["user"] != null)
+            {
+                //Debug.WriteLine(grade.quiz2);
+                data.grade.Add(grade);
+             //   Debug.WriteLine(grade.quiz1);
+                data.SaveChanges();
+               
+            }
+            return View("Grades");
+        }
+        //Edit Grades
+
+        [HttpGet]
+        public ActionResult EditGrades(int id)
+        {
+            if ((string)Session["user"] != null)
+            {
+                grade s = data.grade.Where(a => a.gradeid == id).FirstOrDefault();
+                s.gradeid = id;
+               // Debug.WriteLine(s.gradeid);
+                grade[] grade = data.grade.ToArray();
+                ViewData["grade"] = grade;
+                //var cls = new SelectList(data.@class.ToList(), "classname", "classname");
+                //var stu = new SelectList(data.student.ToList(), "studentname", "studentname");
+                //var sec = new SelectList(data.section.ToList(), "sectionname", "sectionname");
+                //var sub = new SelectList(data.subject.ToList(), "subjectname", "subjectname");
+                //ViewData["classlist"] = cls;
+                //ViewData["studentlist"] = stu;
+                //ViewData["sectionlist"] = sec;
+                //ViewData["subjectlist"] = sub;
+
+                return View(s);
+            }
+            return RedirectToAction("Login", "User");
+
+        }
+
+        [HttpPost]
+
+        public ActionResult EditGrades(grade g, int id)
+        {
+            if ((string)Session["user"] != null)
+            {
+                grade gradeUpdate = data.grade.Where(a => a.gradeid == id).FirstOrDefault();
+                gradeUpdate.gradeid = id;
+                gradeUpdate.classname = g.classname;
+                gradeUpdate.sectionname = g.sectionname;
+                gradeUpdate.subjectname = g.subjectname;
+                gradeUpdate.studentname = g.studentname;
+                gradeUpdate.quiz1 = g.quiz1;
+                gradeUpdate.quiz2 = g.quiz2;
+                gradeUpdate.quiz3 = g.quiz3;
+                gradeUpdate.quiz4 = g.quiz4;
+                gradeUpdate.assignment1 = g.assignment1;
+                gradeUpdate.assignment2 = g.assignment2;
+                gradeUpdate.halfyearlygrade = g.halfyearlygrade;
+                gradeUpdate.finalexamgrade = g.finalexamgrade;
+                data.SaveChanges();
+                return RedirectToAction("Grades");
+            }
+            return RedirectToAction("Login", "User");
+        }
+
         //CourseNotice GET       
         [HttpGet]
 
@@ -199,7 +297,8 @@ namespace Mid_SchoolManagementSystem.Controllers
         {
             if ((string)Session["user"] != null)
             {
-                //string teacherid = (string)Session["user"];
+               string teacherid = (string)Session["user"];
+                Debug.WriteLine(teacherid);
                 section[] sec = data.section.ToArray();
 
                 TempData["sectionlist"] = sec;
@@ -212,15 +311,22 @@ namespace Mid_SchoolManagementSystem.Controllers
             
             return RedirectToAction("Login", "User");
         }
-/*
+        //Notice Post
         [HttpPost]
 
         public ActionResult CreateCourseNotice(coursenotice note)
         {
-            
-            return View();
+
+           
+                //Debug.WriteLine(grade.quiz2);
+                data.coursenotice.Add(note);
+                //   Debug.WriteLine(grade.quiz1);
+                data.SaveChanges();
+
+
+            return View("TeacherIndex");
         }
-*/
+
     }
 
 }

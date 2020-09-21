@@ -228,3 +228,4 @@ C:\Users\Shihab Uddin\source\repos\SchoolManagementSystem_Mid_APWDN\Mid_SchoolMa
 C:\Users\rayma\OneDrive\AIUB\ATP .NET\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\bin\Rotativa.dll
 C:\Users\rayma\OneDrive\AIUB\ATP .NET\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\obj\Debug\Mid_SchoolManagementSystem.csprojAssemblyReference.cache
 C:\Users\Shihab Uddin\source\repos\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\bin\Rotativa.dll
+G:\semester 11\ASP.NET\FINAL PROJECT\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\bin\Rotativa.dll

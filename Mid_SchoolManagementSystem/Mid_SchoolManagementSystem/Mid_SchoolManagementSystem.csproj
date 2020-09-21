@@ -101,7 +101,24 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="App_Browsers\qt.browser" />
+    <EntityDeploy Include="Models\DataAccess\smsModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>smsModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DataAccess\smsModel.edmx.diagram">
+      <DependentUpon>smsModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Models\DataAccess\smsModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>smsModel.edmx</DependentUpon>
+      <LastGenOutput>smsModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DataAccess\smsModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>smsModel.edmx</DependentUpon>
+      <LastGenOutput>smsModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Rotativa\help-wkhtmltoimage.txt" />
     <Content Include="Rotativa\help-wkhtmltopdf.txt" />
     <Content Include="Rotativa\wkhtmltoimage.exe" />
@@ -120,6 +137,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\SuperAdminController.cs" />
     <Compile Include="Controllers\TeacherController.cs" />
@@ -217,23 +235,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
-    <EntityDeploy Include="Models\DataAccess\smsModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>smsModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\DataAccess\smsModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>smsModel.Context.cs</LastGenOutput>
-      <DependentUpon>smsModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\DataAccess\smsModel.edmx.diagram">
-      <DependentUpon>smsModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\DataAccess\smsModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>smsModel.edmx</DependentUpon>
-      <LastGenOutput>smsModel.cs</LastGenOutput>
-    </Content>
     <None Include="packages.config" />
     <Content Include="Views\SuperAdmin\CreateSuperAdmin.cshtml" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
@@ -277,6 +278,12 @@
     <Content Include="Views\Teacher\EditTeacherProfile.cshtml" />
     <Content Include="Views\Student\EditStudentProfile.cshtml" />
     <Content Include="Views\Shared\_StudentLayout.cshtml" />
+    <Content Include="Views\Shared\HomeLayout.cshtml" />
+    <Content Include="Views\Home\HomeIndex.cshtml" />
+    <Content Include="Views\Teacher\UploadGrade.cshtml" />
+    <Content Include="Views\Teacher\Grades.cshtml" />
+    <Content Include="Views\Student\CheckGrades.cshtml" />
+    <Content Include="Views\Teacher\EditGrades.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

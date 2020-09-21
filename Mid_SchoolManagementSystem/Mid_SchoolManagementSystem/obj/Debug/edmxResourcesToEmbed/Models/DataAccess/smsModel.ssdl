@@ -52,6 +52,10 @@
       <PropertyRef Name="gradeid" />
     </Key>
     <Property Name="gradeid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="classname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="sectionname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="subjectname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="studentname" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="quiz1" Type="int" Nullable="false" />
     <Property Name="quiz2" Type="int" Nullable="false" />
     <Property Name="assignment1" Type="int" Nullable="false" />

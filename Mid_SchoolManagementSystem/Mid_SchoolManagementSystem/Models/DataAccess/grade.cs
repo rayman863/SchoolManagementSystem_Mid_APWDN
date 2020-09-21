@@ -15,6 +15,10 @@ namespace Mid_SchoolManagementSystem.Models.DataAccess
     public partial class grade
     {
         public int gradeid { get; set; }
+        public string classname { get; set; }
+        public string sectionname { get; set; }
+        public string subjectname { get; set; }
+        public string studentname { get; set; }
         public int quiz1 { get; set; }
         public int quiz2 { get; set; }
         public int assignment1 { get; set; }

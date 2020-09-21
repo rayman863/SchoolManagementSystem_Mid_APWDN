@@ -57,6 +57,10 @@
             <PropertyRef Name="gradeid" />
           </Key>
           <Property Name="gradeid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="classname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sectionname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="subjectname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="studentname" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="quiz1" Type="int" Nullable="false" />
           <Property Name="quiz2" Type="int" Nullable="false" />
           <Property Name="assignment1" Type="int" Nullable="false" />
@@ -263,6 +267,10 @@
             <PropertyRef Name="gradeid" />
           </Key>
           <Property Name="gradeid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="classname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sectionname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="subjectname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="studentname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="quiz1" Type="Int32" Nullable="false" />
           <Property Name="quiz2" Type="Int32" Nullable="false" />
           <Property Name="assignment1" Type="Int32" Nullable="false" />
@@ -394,23 +402,23 @@
           <Property Name="subjectid" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityContainer Name="smsEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="admin" EntityType="Self.admin" />
-          <EntitySet Name="assignment" EntityType="Self.assignment" />
-          <EntitySet Name="class" EntityType="Self.class" />
-          <EntitySet Name="coursenotice" EntityType="Self.coursenotice" />
-          <EntitySet Name="generalnotice" EntityType="Self.generalnotice" />
-          <EntitySet Name="grade" EntityType="Self.grade" />
+          <EntitySet Name="admins" EntityType="Self.admin" />
+          <EntitySet Name="assignments" EntityType="Self.assignment" />
+          <EntitySet Name="classes" EntityType="Self.class" />
+          <EntitySet Name="coursenotices" EntityType="Self.coursenotice" />
+          <EntitySet Name="generalnotices" EntityType="Self.generalnotice" />
+          <EntitySet Name="grades" EntityType="Self.grade" />
           <EntitySet Name="homework" EntityType="Self.homework" />
-          <EntitySet Name="live" EntityType="Self.live" />
-          <EntitySet Name="routine" EntityType="Self.routine" />
-          <EntitySet Name="section" EntityType="Self.section" />
-          <EntitySet Name="student" EntityType="Self.student" />
-          <EntitySet Name="subject" EntityType="Self.subject" />
-          <EntitySet Name="superadmin" EntityType="Self.superadmin" />
-          <EntitySet Name="teacher" EntityType="Self.teacher" />
-          <EntitySet Name="timeslot" EntityType="Self.timeslot" />
-          <EntitySet Name="tpe" EntityType="Self.tpe" />
-          <EntitySet Name="uploadnote" EntityType="Self.uploadnote" />
+          <EntitySet Name="lives" EntityType="Self.live" />
+          <EntitySet Name="routines" EntityType="Self.routine" />
+          <EntitySet Name="sections" EntityType="Self.section" />
+          <EntitySet Name="students" EntityType="Self.student" />
+          <EntitySet Name="subjects" EntityType="Self.subject" />
+          <EntitySet Name="superadmins" EntityType="Self.superadmin" />
+          <EntitySet Name="teachers" EntityType="Self.teacher" />
+          <EntitySet Name="timeslots" EntityType="Self.timeslot" />
+          <EntitySet Name="tpes" EntityType="Self.tpe" />
+          <EntitySet Name="uploadnotes" EntityType="Self.uploadnote" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -418,7 +426,7 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="smsModelStoreContainer" CdmEntityContainer="smsEntities">
-          <EntitySetMapping Name="admin">
+          <EntitySetMapping Name="admins">
             <EntityTypeMapping TypeName="smsModel.admin">
               <MappingFragment StoreEntitySet="admin">
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -428,7 +436,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="assignment">
+          <EntitySetMapping Name="assignments">
             <EntityTypeMapping TypeName="smsModel.assignment">
               <MappingFragment StoreEntitySet="assignment">
                 <ScalarProperty Name="assignmentid" ColumnName="assignmentid" />
@@ -441,7 +449,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="class">
+          <EntitySetMapping Name="classes">
             <EntityTypeMapping TypeName="smsModel.class">
               <MappingFragment StoreEntitySet="class">
                 <ScalarProperty Name="classid" ColumnName="classid" />
@@ -449,7 +457,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="coursenotice">
+          <EntitySetMapping Name="coursenotices">
             <EntityTypeMapping TypeName="smsModel.coursenotice">
               <MappingFragment StoreEntitySet="coursenotice">
                 <ScalarProperty Name="noticeid" ColumnName="noticeid" />
@@ -460,7 +468,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="generalnotice">
+          <EntitySetMapping Name="generalnotices">
             <EntityTypeMapping TypeName="smsModel.generalnotice">
               <MappingFragment StoreEntitySet="generalnotice">
                 <ScalarProperty Name="noticeid" ColumnName="noticeid" />
@@ -470,10 +478,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="grade">
+          <EntitySetMapping Name="grades">
             <EntityTypeMapping TypeName="smsModel.grade">
               <MappingFragment StoreEntitySet="grade">
                 <ScalarProperty Name="gradeid" ColumnName="gradeid" />
+                <ScalarProperty Name="classname" ColumnName="classname" />
+                <ScalarProperty Name="sectionname" ColumnName="sectionname" />
+                <ScalarProperty Name="subjectname" ColumnName="subjectname" />
+                <ScalarProperty Name="studentname" ColumnName="studentname" />
                 <ScalarProperty Name="quiz1" ColumnName="quiz1" />
                 <ScalarProperty Name="quiz2" ColumnName="quiz2" />
                 <ScalarProperty Name="assignment1" ColumnName="assignment1" />
@@ -498,7 +510,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="live">
+          <EntitySetMapping Name="lives">
             <EntityTypeMapping TypeName="smsModel.live">
               <MappingFragment StoreEntitySet="live">
                 <ScalarProperty Name="liveid" ColumnName="liveid" />
@@ -508,7 +520,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="routine">
+          <EntitySetMapping Name="routines">
             <EntityTypeMapping TypeName="smsModel.routine">
               <MappingFragment StoreEntitySet="routine">
                 <ScalarProperty Name="routineid" ColumnName="routineid" />
@@ -516,7 +528,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="section">
+          <EntitySetMapping Name="sections">
             <EntityTypeMapping TypeName="smsModel.section">
               <MappingFragment StoreEntitySet="section">
                 <ScalarProperty Name="sectionid" ColumnName="sectionid" />
@@ -525,7 +537,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="student">
+          <EntitySetMapping Name="students">
             <EntityTypeMapping TypeName="smsModel.student">
               <MappingFragment StoreEntitySet="student">
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -543,7 +555,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="subject">
+          <EntitySetMapping Name="subjects">
             <EntityTypeMapping TypeName="smsModel.subject">
               <MappingFragment StoreEntitySet="subject">
                 <ScalarProperty Name="subjectid" ColumnName="subjectid" />
@@ -552,7 +564,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="superadmin">
+          <EntitySetMapping Name="superadmins">
             <EntityTypeMapping TypeName="smsModel.superadmin">
               <MappingFragment StoreEntitySet="superadmin">
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -562,7 +574,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="teacher">
+          <EntitySetMapping Name="teachers">
             <EntityTypeMapping TypeName="smsModel.teacher">
               <MappingFragment StoreEntitySet="teacher">
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -579,7 +591,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="timeslot">
+          <EntitySetMapping Name="timeslots">
             <EntityTypeMapping TypeName="smsModel.timeslot">
               <MappingFragment StoreEntitySet="timeslot">
                 <ScalarProperty Name="timeslotid" ColumnName="timeslotid" />
@@ -591,7 +603,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tpe">
+          <EntitySetMapping Name="tpes">
             <EntityTypeMapping TypeName="smsModel.tpe">
               <MappingFragment StoreEntitySet="tpe">
                 <ScalarProperty Name="tpeid" ColumnName="tpeid" />
@@ -605,7 +617,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="uploadnote">
+          <EntitySetMapping Name="uploadnotes">
             <EntityTypeMapping TypeName="smsModel.uploadnote">
               <MappingFragment StoreEntitySet="uploadnote">
                 <ScalarProperty Name="uploadid" ColumnName="uploadid" />
@@ -631,7 +643,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

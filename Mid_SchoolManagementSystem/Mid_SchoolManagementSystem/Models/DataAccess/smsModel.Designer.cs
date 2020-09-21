@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\rayma\OneDrive\AIUB\ATP .NET\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\Models\DataAccess\smsModel.edmx'. 
+﻿// T4 code generation is enabled for model 'G:\semester 11\ASP.NET\FINAL PROJECT\SchoolManagementSystem_Mid_APWDN\Mid_SchoolManagementSystem\Mid_SchoolManagementSystem\Models\DataAccess\smsModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
